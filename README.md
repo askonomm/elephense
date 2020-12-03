@@ -12,13 +12,11 @@ Let's get started!
 🎈 Include a brief description of the features your extension provides. For example:
 -->
 
-**Intelephense** provides deep integration with **An Important Language**, including the most important feature, something that's really helpful, and _a little-known secret!_
+**Intelephense** provides LSP support for PHP via [Intelephense](https://intelephense.com/).
 
 <!--
 🎈 It can also be helpful to include a screenshot or GIF showing your extension in action:
 -->
-
-![](https://nova.app/images/en/dark/editor.png)
 
 ## Requirements
 
@@ -28,13 +26,13 @@ Let's get started!
 
 Intelephense requires some additional tools to be installed on your Mac:
 
-- [Node.js 8.2.0](https://nodejs.org) and NPM 5.2.0 or newer
+-   [Intelephense](https://intelephense.com/)
 
 <!--
 ✨ Providing tips, tricks, or other guides for installing or configuring external dependencies can go a long way toward helping your users have a good setup experience:
 -->
 
-> To install the current stable version of Node, click the "Recommended for Most Users" button to begin the download. When that completes, double-click the **.pkg** installer to begin installation.
+> To install the current stable version of Intelephense use npm to install it globally: `npm install intelephense -g`. You may need adminstrative privileges for this.
 
 ## Usage
 
@@ -44,16 +42,11 @@ Intelephense requires some additional tools to be installed on your Mac:
 
 To run Intelephense:
 
-- Select the **Editor → Intelephense** menu item; or
-- Open the command palette and type `Intelephense`
+-   Just activate the extension.
 
 <!--
 🎈 Alternatively, if your extension runs automatically (as in the case of a validator), consider showing users what they can expect to see:
 -->
-
-Intelephense runs any time you open a local project, automatically lints all open files, then reports errors and warnings in Nova's **Issues** sidebar and the editor gutter:
-
-![](https://nova.app/images/en/dark/tools/sidebars.png)
 
 ### Configuration
 
