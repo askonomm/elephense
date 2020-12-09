@@ -1,9 +1,9 @@
 {
-	"identifier": "com.intelephense",
+	"identifier": "com.thorlaksson.intelephense",
 	"name": "Intelephense",
-	"organization": "com.intelephense",
+	"organization": "Kristófer Reykjalín",
 	"description": "Intelephense LSP integration for Nova",
-	"version": "1.0",
+	"version": "0.1.1",
 	"categories": ["languages"],
 	"bugs": { "email": "kristofer@thorlaksson.com" },
 	"homepage": "https://intelephense.com",
