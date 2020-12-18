@@ -3,12 +3,20 @@
 	"name": "Intelephense",
 	"organization": "Kristófer Reykjalín",
 	"description": "Intelephense LSP integration for Nova",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"categories": ["languages"],
 	"bugs": { "email": "kristofer@thorlaksson.com" },
 	"homepage": "https://intelephense.com",
 
 	"main": "main.js",
+
+	"activationEvents": [
+		"onLanguage:php",
+		"onLanguage:phtml",
+		"onWorkspaceContains:phpcs.xml",
+		"onWorkspaceContains:composer.json",
+		"onWorkspaceContains:phpunit.xml"
+	],
 
 	"entitlements": {
 		"process": true,
