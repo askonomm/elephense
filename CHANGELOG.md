@@ -1,3 +1,7 @@
+## Version 0.1.4
+
+* Fix - Error in Advanced PHP support.
+
 ## Version 0.1.3
 
 * Add support for the Advanced PHP extension.
