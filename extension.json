@@ -3,10 +3,10 @@
 	"name": "Intelephense",
 	"organization": "Kristófer Reykjalín",
 	"description": "Intelephense LSP integration for Nova",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"categories": ["languages"],
-	"bugs": { "email": "kristofer@thorlaksson.com" },
-	"homepage": "https://intelephense.com",
+	"bugs": "https://lists.sr.ht/~reykjalin/public-inbox",
+	"homepage": "https://git.sr.ht/~reykjalin/nova-intelephense",
 
 	"main": "main.js",
 

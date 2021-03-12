@@ -1,3 +1,7 @@
+## Version 0.1.5 - March 12, 2021
+
+* Add - Link to mailing list for bug reports instead of my personal email.
+
 ## Version 0.1.4
 
 * Fix - Error in Advanced PHP support.
