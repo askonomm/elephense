@@ -30,13 +30,13 @@ Intelephense is developed by [Ben Mewburn](https://github.com/bmewburn) on [GitH
 
 Intelephense requires some additional tools to be installed on your Mac:
 
--   [Intelephense](https://intelephense.com/)
+-   [Node.js](https://nodejs.org/en/)
 
 <!--
 ✨ Providing tips, tricks, or other guides for installing or configuring external dependencies can go a long way toward helping your users have a good setup experience:
 -->
 
-> To install the current stable version of Intelephense use npm to install it globally: `npm install intelephense -g`. You may need adminstrative privileges for this.
+> If you want to use a different version of Intelephense than the bundled version you can set a path to the executable in the extension preferences.
 
 ## Usage
 
@@ -47,6 +47,8 @@ Intelephense requires some additional tools to be installed on your Mac:
 To run Intelephense:
 
 -   Just activate the extension.
+
+Once the extension is activated it will attempt to install Intelephense in the extension workspace, if no installation is found.
 
 <!--
 🎈 Alternatively, if your extension runs automatically (as in the case of a validator), consider showing users what they can expect to see:

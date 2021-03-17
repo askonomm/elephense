@@ -3,7 +3,7 @@
 	"name": "Intelephense",
 	"organization": "Kristófer Reykjalín",
 	"description": "Intelephense LSP integration for Nova",
-	"version": "0.1.5",
+	"version": "0.2.0",
 	"categories": ["languages"],
 	"bugs": "https://lists.sr.ht/~reykjalin/public-inbox",
 	"homepage": "https://git.sr.ht/~reykjalin/nova-intelephense",

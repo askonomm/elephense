@@ -1,0 +1,20 @@
+{
+	"name": "nova-intelephense",
+	"version": "0.2.0",
+	"description": "Use Intelephense with Nova",
+	"scripts": {},
+	"repository": {
+		"type": "git",
+		"url": "git@git.sr.ht:~reykjalin/nova-intelephense"
+	},
+	"keywords": [
+		"intelephense",
+		"lsp",
+		"nova"
+	],
+	"author": "Kristófer Reykjalín",
+	"license": "MIT",
+	"dependencies": {
+		"intelephense": "1.5.4"
+	}
+}

@@ -1,3 +1,7 @@
+## Version 0.2.0 - March 17, 2021
+
+* Add - bundled version of Intelephense.
+
 ## Version 0.1.5 - March 12, 2021
 
 * Add - Link to mailing list for bug reports instead of my personal email.
