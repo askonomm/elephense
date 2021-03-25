@@ -16,7 +16,7 @@ Let's get started!
 
 Intelephense is developed by [Ben Mewburn](https://github.com/bmewburn) on [GitHub](https://github.com/bmewburn/vscode-intelephense/), and is not involved in the development of this extension. I've made this extension available since it's useful for myself, and hope it will be useful for others.
 
-**This extension is very much in an alpha stage**, has incomplete support, and has several known issues—one of which makes the Extension Runtime in Nova unstable.
+**This extension is in a beta stage**, has incomplete support for all the configuration options available in Intelephense.
 
 <!--
 🎈 It can also be helpful to include a screenshot or GIF showing your extension in action:

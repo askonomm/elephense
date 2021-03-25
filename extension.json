@@ -10,6 +10,8 @@
 
 	"main": "main.js",
 
+	"min_runtime": "5.1",
+
 	"activationEvents": [
 		"onLanguage:php",
 		"onLanguage:phtml",

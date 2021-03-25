@@ -2,6 +2,8 @@
 
 * Add - Restart command.
 * Tweak - Don't clear cache on startup.
+* Tweak - Update README to say extension is in a "beta stage", now that the Nova Extension Runtime has been fixed to not crash when running the language server.
+* Tweak - Set the minimum runtime version to Nova 5.1; that's when the extension runtime was fixed.
 
 ## Version 0.2.0 - March 17, 2021
 
