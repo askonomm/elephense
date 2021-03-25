@@ -13,8 +13,21 @@ exports.deactivate = function () {
 	}
 };
 
+nova.commands.register(
+	'com.thorlaksson.intelephense.restartServer',
+	(_workspace) => {
+		if (langserver) {
+			langserver.stop();
+			langserver.start();
+		} else {
+			// Constructor automatically starts the server.
+			langserver = new IntelephenseLanguageServer();
+		}
+	}
+);
+
 const shouldUpdateIntelephense = () => {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve, _reject) => {
 		const getIntelephensePath = new Process('usr/bin/env', {
 			args: [
 				'npm',

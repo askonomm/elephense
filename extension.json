@@ -31,5 +31,15 @@
 			"type": "path",
 			"placeholder": "/usr/local/bin/intelephense"
 		}
-	]
+	],
+
+	"commands": {
+		"extensions": [
+			{
+				"title": "Restart Intelephense",
+				"command": "com.thorlaksson.intelephense.restartServer"
+			},
+			{ "separator": true }
+		]
+	}
 }
