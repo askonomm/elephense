@@ -1,6 +1,7 @@
 ## Version 0.2.1 - March 26, 2021
 
-* Add - Restart command
+* Add - Restart command.
+* Tweak - Don't clear cache on startup.
 
 ## Version 0.2.0 - March 17, 2021
 
