@@ -200,6 +200,20 @@
 					"default": true
 				}
 			]
+		},
+		{
+			"type": "section",
+			"title": "Telemetry",
+			"link": "https://github.com/bmewburn/intelephense-docs/blob/master/installation.md",
+			"children": [
+				{
+					"key": "intelephense.telemetry.enabled",
+					"title": "Enable anonymous usage statistics?",
+					"description": "Anonymous usage and crash data will be sent to Azure Application Insights.",
+					"type": "boolean",
+					"default": false
+				}
+			]
 		}
 	],
 
