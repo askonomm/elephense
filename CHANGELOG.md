@@ -1,6 +1,7 @@
 ## Version 0.3.0 - April 5, 2021
 
 * Add - MIT license.
+* Add - Language server settings exposed through Nova's preferences screen.
 
 ## Version 0.2.1 - March 26, 2021
 
