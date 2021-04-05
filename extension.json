@@ -7,6 +7,7 @@
 	"categories": ["languages"],
 	"bugs": "https://lists.sr.ht/~reykjalin/public-inbox",
 	"homepage": "https://git.sr.ht/~reykjalin/nova-intelephense",
+	"license": "MIT",
 
 	"main": "main.js",
 
