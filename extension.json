@@ -36,6 +36,45 @@
 		},
 		{
 			"type": "section",
+			"title": "Workspace",
+			"link": "https://github.com/bmewburn/intelephense-docs/blob/master/gettingStarted.md#workspace",
+			"children": [
+				{
+					"key": "intelephense.files.associations",
+					"title": "File Associations",
+					"description": "Configure glob patterns to make files available language server features.",
+					"type": "stringArray",
+					"default": ["*.php", "*.phtml"]
+				},
+				{
+					"key": "intelephense.files.maxSize",
+					"title": "Maximum File Size",
+					"description": "Maximum file size in bytes.",
+					"type": "number",
+					"default": 1000000
+				},
+				{
+					"key": "intelephense.files.exclude",
+					"title": "Excluded Paths",
+					"description": "Configure glob patterns to exclude certain files and folders from all language server features.",
+					"type": "stringArray",
+					"default": [
+						"**/.git/**",
+						"**/.svn/**",
+						"**/.hg/**",
+						"**/CVS/**",
+						"**/.DS_Store/**",
+						"**/node_modules/**",
+						"**/bower_components/**",
+						"**/vendor/**/{Tests,tests}/**",
+						"**/.history/**",
+						"**/vendor/**/vendor/**"
+					]
+				}
+			]
+		},
+		{
+			"type": "section",
 			"title": "Environment",
 			"link": "https://github.com/bmewburn/intelephense-docs/blob/master/gettingStarted.md#environment",
 			"children": [
@@ -138,6 +177,27 @@
 					"description": "The include paths (as individual path items) as defined in the include_path ini setting. Used for resolving script inclusion.",
 					"type": "pathArray",
 					"default": []
+				}
+			]
+		},
+		{
+			"type": "section",
+			"title": "Type Declarations and Annotations",
+			"link": "https://github.com/bmewburn/intelephense-docs/blob/master/gettingStarted.md#type-declarations-and-annotations",
+			"children": [
+				{
+					"key": "intelephense.compatibility.correctForBaseClassStaticUnionTypes",
+					"title": "Correct For Base Class Static Union Types?",
+					"description": "Resolves `BaseClass | static` union types to `static` instead of `BaseClass`.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.compatibility.correctForArrayAccessArrayAndTraversableArrayUnionTypes",
+					"title": "Correct for ArrayAccess and Traversable array union types?",
+					"description": "Resolves `ArrayAccess` and `Traversable` implementations that are unioned with a typed array to generic syntax. E.g. `ArrayAccessOrTraversable | ElementType[]` =>`ArrayAccessOrTraversable<mixed, ElementType>`.",
+					"type": "boolean",
+					"default": true
 				}
 			]
 		}
