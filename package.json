@@ -15,6 +15,6 @@
 	"author": "Kristófer Reykjalín",
 	"license": "MIT",
 	"dependencies": {
-		"intelephense": "1.5.4"
+		"intelephense": "1.7.1"
 	}
 }

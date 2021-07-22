@@ -1,3 +1,7 @@
+## Version 0.4.0 - July 22, 2021
+
+* Tweak - Intelephense updated to version 1.7.1.
+
 ## Version 0.3.0 - April 5, 2021
 
 * Add - MIT license.
