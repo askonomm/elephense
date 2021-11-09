@@ -12,11 +12,11 @@ Let's get started!
 🎈 Include a brief description of the features your extension provides. For example:
 -->
 
-**Intelephense** provides LSP support for PHP via [Intelephense](https://intelephense.com/).
+**Intelephense** provides advanced language support for PHP via [Intelephense](https://intelephense.com/).
 
-Intelephense is developed by [Ben Mewburn](https://github.com/bmewburn) on [GitHub](https://github.com/bmewburn/vscode-intelephense/), and is not involved in the development of this extension. I've made this extension available since it's useful for myself, and hope it will be useful for others.
+Intelephense is developed by [Ben Mewburn](https://github.com/bmewburn) on [GitHub](https://github.com/bmewburn/vscode-intelephense/). Ben Mewburn is not involved in the development of this extension.
 
-**This extension is in a beta stage**, has incomplete support for all the configuration options available in Intelephense.
+The extension has mostly complete support for the configuration options available in Intelephense. If there's something you're missing please reach out and let me know.
 
 <!--
 🎈 It can also be helpful to include a screenshot or GIF showing your extension in action:
@@ -30,13 +30,17 @@ Intelephense is developed by [Ben Mewburn](https://github.com/bmewburn) on [GitH
 
 Intelephense requires some additional tools to be installed on your Mac:
 
--   [Node.js](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/)
 
 <!--
 ✨ Providing tips, tricks, or other guides for installing or configuring external dependencies can go a long way toward helping your users have a good setup experience:
 -->
 
 > If you want to use a different version of Intelephense than the bundled version you can set a path to the executable in the extension preferences.
+
+<!-- This comment is here to make sure these are separate notes -->
+
+> Intelephense will occasionally fail to complete the necessary start-up routines and you won't get hover information, autocompletion, etc. When this happens please restart Intelephense using the provided command in **Extensions > Intelephense > Restart Intelephense**.
 
 ## Usage
 
@@ -46,7 +50,7 @@ Intelephense requires some additional tools to be installed on your Mac:
 
 To run Intelephense:
 
--   Just activate the extension.
+- Just activate the extension.
 
 Once the extension is activated it will attempt to install Intelephense in the extension workspace, if no installation is found.
 
@@ -62,7 +66,7 @@ Once the extension is activated it will attempt to install Intelephense in the e
 
 To configure global preferences, open **Extensions → Extension Library...** then select Intelephense's **Preferences** tab.
 
-You can also configure preferences on a per-project basis in **Project → Project Settings...**
+<!-- You can also configure preferences on a per-project basis in **Project → Project Settings...** -->
 
 <!--
 👋 That's it! Happy developing!

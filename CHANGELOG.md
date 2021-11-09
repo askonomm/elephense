@@ -1,3 +1,8 @@
+## Version 1.0.0 - November, 9 2021
+
+* Tweak - Update description.
+* Tweak - Update readme.
+
 ## Version 0.4.0 - July 22, 2021
 
 * Tweak - Intelephense updated to version 1.7.1.
