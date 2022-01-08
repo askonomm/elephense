@@ -8,6 +8,7 @@
 	"bugs": "https://lists.sr.ht/~reykjalin/public-inbox",
 	"homepage": "https://git.sr.ht/~reykjalin/nova-intelephense",
 	"repository": "https://git.sr.ht/~reykjalin/nova-intelephense",
+	"funding": "https://intelephense.com/",
 	"license": "MIT",
 
 	"main": "main.js",

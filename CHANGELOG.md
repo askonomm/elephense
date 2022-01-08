@@ -1,6 +1,7 @@
 ## Version 1.0.0 - November, 9 2021
 
 * Add - Demo screenshot.
+* Add - Sponsor link to original Intelephense project.
 * Tweak - Update Intelephense to version 1.8.0.
 
 ## Version 1.0.0 - November, 9 2021
