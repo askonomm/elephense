@@ -60,6 +60,12 @@ Once the extension is activated it will attempt to install Intelephense in the e
 🎈 Alternatively, if your extension runs automatically (as in the case of a validator), consider showing users what they can expect to see:
 -->
 
+### Workspace specific stubs
+
+You can configure stubs that Intelephense will use on a per-project basis by opening **Project → Project Settings → Intelephense** and changing the stubs list there.
+If you set this list of stubs back to the default value Intelephense will instead use the stubs list from the global preferences.
+To quickly reset the stubs list back to default values you can use the **Extensions → Intelephense → Reset Workspace Stubs** command.
+
 ### Configuration
 
 <!--

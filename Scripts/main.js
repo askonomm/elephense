@@ -1,3 +1,5 @@
+const { defaultStubs } = require('./defaults');
+
 let eventHandler = null;
 var langserver = null;
 
@@ -10,6 +12,13 @@ nova.commands.register(
 		}
 		// Constructor automatically starts the server.
 		langserver = new IntelephenseLanguageServer();
+	}
+);
+
+nova.commands.register(
+	'com.thorlaksson.intelephense.resetWorkspaceStubs',
+	(workspace) => {
+		workspace.config.set('intelephense.workspace-stubs', defaultStubs);
 	}
 );
 
@@ -138,7 +147,7 @@ class IntelephenseLanguageServer {
 			// The set of document syntaxes for which the server is valid
 			syntaxes: ['advphp', 'php', 'phtml'],
 			initializationOptions: {
-				clearCache: false,
+				clearCache: true,
 			},
 		};
 		var client = new LanguageClient(
@@ -221,6 +230,39 @@ exports.activate = function () {
 	// Make sure we start the language server last, since all events must be registered prior to
 	// entering the constructor.
 	langserver = new IntelephenseLanguageServer();
+
+	// Watch for changes in project-specific stubs.
+	nova.workspace.config.onDidChange(
+		'intelephense.workspace-stubs',
+		(newSettings, _oldSettings) => {
+			const shouldReset = () => {
+				if (newSettings.length !== defaultStubs.length) {
+					return false;
+				}
+
+				newSettings.forEach((stub) => {
+					if (!defaultStubs.includes(stub)) {
+						return false;
+					}
+				});
+				return true;
+			};
+
+			// If project stubs are set to the default value we instead use the global stubs.
+			if (shouldReset()) {
+				if (nova.inDevMode()) {
+					console.log('Resetting workspace stubs');
+				}
+				const globalStubs = nova.config.get('intelephense.stubs');
+				nova.workspace.config.set('intelephense.stubs', globalStubs);
+			} else {
+				if (nova.inDevMode()) {
+					console.log('Updating workspace stubs');
+				}
+				nova.workspace.config.set('intelephense.stubs', newSettings);
+			}
+		}
+	);
 };
 
 exports.deactivate = function () {
