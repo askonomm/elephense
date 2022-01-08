@@ -147,7 +147,7 @@ class IntelephenseLanguageServer {
 			// The set of document syntaxes for which the server is valid
 			syntaxes: ['advphp', 'php', 'phtml'],
 			initializationOptions: {
-				clearCache: true,
+				clearCache: false,
 			},
 		};
 		var client = new LanguageClient(

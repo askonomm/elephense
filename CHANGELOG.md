@@ -1,4 +1,8 @@
-## Version 1.0.0 - November, 9 2021
+## Version 1.1.1 - January 7, 2022
+
+* Tweak - Cache is no longer cleared on startup; forgot to change this back after development for version 1.1.0.
+
+## Version 1.1.0 - January 7, 2022
 
 * Add - Demo screenshot.
 * Add - Sponsor link to original Intelephense project.
