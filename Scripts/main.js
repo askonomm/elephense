@@ -50,7 +50,7 @@ const checkIntelephenseVersion = () => {
 
 	getIntelephensePath.onStdout((line) => {
 		const [_, npmVersion] = line.trim().split('@');
-		if ('1.7.1' === npmVersion) {
+		if ('1.8.0' === npmVersion) {
 			hasCorrectVersion = true;
 		}
 	});

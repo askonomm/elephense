@@ -1,6 +1,6 @@
 {
 	"name": "nova-intelephense",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Use Intelephense with Nova",
 	"scripts": {},
 	"repository": {
@@ -15,6 +15,6 @@
 	"author": "Kristófer Reykjalín",
 	"license": "MIT",
 	"dependencies": {
-		"intelephense": "1.7.1"
+		"intelephense": "1.8.0"
 	}
 }
