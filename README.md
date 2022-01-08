@@ -18,6 +18,8 @@ Intelephense is developed by [Ben Mewburn](https://github.com/bmewburn) on [GitH
 
 The extension has mostly complete support for the configuration options available in Intelephense. If there's something you're missing please reach out and let me know.
 
+![Screenshot showcasing Intelephense's ability to provide hover information.](https://git.sr.ht/~reykjalin/nova-intelephense/blob/main/Screenshots/demo.png)
+
 <!--
 🎈 It can also be helpful to include a screenshot or GIF showing your extension in action:
 -->
