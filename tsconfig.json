@@ -1,0 +1,9 @@
+{
+	"extends": "@tsconfig/recommended",
+	"include": [ "src/**/*", "external/**/*" ],
+	"exclude": [ "node_modules", "**/*.spec.ts" ],
+	"compilerOptions": {
+		"outDir": "intelephense.novaextension/Scripts/",
+		"strict": true
+	}
+}

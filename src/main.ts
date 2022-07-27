@@ -1,7 +1,7 @@
-const { defaultStubs } = require('./defaults');
+import { defaultStubs } from './defaults';
 
-let eventHandler = null;
-var langserver = null;
+let eventHandler: Emitter | null = null;
+let langserver: IntelephenseLanguageServer | null = null;
 
 nova.commands.register(
 	'com.thorlaksson.intelephense.restartServer',
@@ -32,9 +32,9 @@ const installIntelephense = () => {
 	installProcess.onDidExit((exitStatus) => {
 		console.log('=== install done ===');
 		if (0 !== exitStatus) {
-			eventHandler.emit('intelephenseFailedToInstall');
+			eventHandler?.emit('intelephenseFailedToInstall');
 		} else {
-			eventHandler.emit('intelephenseInstalled');
+			eventHandler?.emit('intelephenseInstalled');
 		}
 	});
 
@@ -58,6 +58,7 @@ const checkIntelephenseVersion = () => {
 	let hasCorrectVersion = false;
 
 	getIntelephensePath.onStdout((line) => {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const [_, npmVersion] = line.trim().split('@');
 		if ('1.8.0' === npmVersion) {
 			hasCorrectVersion = true;
@@ -69,32 +70,35 @@ const checkIntelephenseVersion = () => {
 			if (hasCorrectVersion) {
 				console.info('Intelephense is installed and up to date');
 				// Since we're installing Intelephense, provide the bundled version.
-				eventHandler.emit('intelephenseUpToDate');
+				eventHandler?.emit('intelephenseUpToDate');
 				return;
 			}
 		}
 		console.info(
 			'Intelephense is either not installed or using the wrong version'
 		);
-		eventHandler.emit('intelephenseOutOfDate');
+		eventHandler?.emit('intelephenseOutOfDate');
 	});
 
 	getIntelephensePath.start();
 };
 
 class IntelephenseLanguageServer {
+	languageClient: LanguageClient | null;
+
 	constructor() {
+		this.languageClient = null;
+
 		// Observe the configuration setting for the server's location, and restart the server on change
 		nova.config.observe(
 			'intelephense.language-server-path',
-			function (path) {
+			(path: string, _: string) => {
 				this.checkPath(path);
-			},
-			this
+			}
 		);
 
-		eventHandler.on('startIntelephense', this.start);
-		eventHandler.on('intelephenseUpToDate', () => {
+		eventHandler?.on('startIntelephense', this.start);
+		eventHandler?.on('intelephenseUpToDate', () => {
 			this.start(
 				nova.path.join(
 					nova.extension.path,
@@ -105,7 +109,7 @@ class IntelephenseLanguageServer {
 				)
 			);
 		});
-		eventHandler.on('intelephenseInstalled', () => {
+		eventHandler?.on('intelephenseInstalled', () => {
 			this.start(
 				nova.path.join(
 					nova.extension.path,
@@ -120,37 +124,36 @@ class IntelephenseLanguageServer {
 
 	deactivate() {
 		this.stop();
-		eventHandler.clear('startIntelephense');
-		eventHandler.clear('intelephenseUpToDate');
+		eventHandler?.clear('startIntelephense');
+		eventHandler?.clear('intelephenseUpToDate');
 	}
 
-	checkPath(providedPath) {
+	checkPath(providedPath: string) {
 		if (!providedPath) {
-			eventHandler.emit('ensureBundledIntelephense');
+			eventHandler?.emit('ensureBundledIntelephense');
 		} else {
-			eventHandler.emit('startIntelephense', providedPath);
+			eventHandler?.emit('startIntelephense', providedPath);
 		}
 	}
 
-	start(path) {
+	start(path: string) {
 		if (this.languageClient) {
 			this.languageClient.stop();
-			nova.subscriptions.remove(this.languageClient);
 		}
 
 		// Create the client
-		var serverOptions = {
+		const serverOptions = {
 			path: '/usr/bin/env',
 			args: ['node', path, '--stdio'],
 		};
-		var clientOptions = {
+		const clientOptions = {
 			// The set of document syntaxes for which the server is valid
 			syntaxes: ['advphp', 'php', 'phtml'],
 			initializationOptions: {
 				clearCache: false,
 			},
 		};
-		var client = new LanguageClient(
+		const client = new LanguageClient(
 			'intelephense',
 			'Intelephense Language Server',
 			serverOptions,
@@ -168,7 +171,6 @@ class IntelephenseLanguageServer {
 			});
 
 			// Add the client to the subscriptions to be cleaned up
-			nova.subscriptions.add(client);
 			this.languageClient = client;
 		} catch (err) {
 			// If the .start() method throws, it's likely because the path to the language server is invalid
@@ -182,7 +184,6 @@ class IntelephenseLanguageServer {
 	stop() {
 		if (this.languageClient) {
 			this.languageClient.stop();
-			nova.subscriptions.remove(this.languageClient);
 			this.languageClient = null;
 		}
 	}
@@ -234,7 +235,7 @@ exports.activate = function () {
 	// Watch for changes in project-specific stubs.
 	nova.workspace.config.onDidChange(
 		'intelephense.workspace-stubs',
-		(newSettings, _oldSettings) => {
+		(newSettings: string[], _oldSettings) => {
 			const shouldReset = () => {
 				if (newSettings.length !== defaultStubs.length) {
 					return false;

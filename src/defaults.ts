@@ -1,4 +1,4 @@
-const defaultStubs = [
+export const defaultStubs = [
 	'apache',
 	'bcmath',
 	'bz2',
@@ -71,7 +71,3 @@ const defaultStubs = [
 	'zip',
 	'zlib',
 ];
-
-module.exports = {
-	defaultStubs,
-};

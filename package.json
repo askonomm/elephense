@@ -1,20 +1,26 @@
 {
-	"name": "nova-intelephense",
-	"version": "1.1.1",
-	"description": "Use Intelephense with Nova",
-	"scripts": {},
-	"repository": {
-		"type": "git",
-		"url": "git@git.sr.ht:~reykjalin/nova-intelephense"
-	},
-	"keywords": [
-		"intelephense",
-		"lsp",
-		"nova"
-	],
-	"author": "Kristófer Reykjalín",
-	"license": "MIT",
-	"dependencies": {
-		"intelephense": "1.8.0"
-	}
+  "name": "nova-intelephense",
+  "version": "1.1.1",
+  "description": "High performance, advanced PHP language support for Nova",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.sr.ht:~reykjalin/nova-intelephense"
+  },
+  "author": "Kristófer R. <kristofer@thorlaksson.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/nova-editor": "^1.0.0",
+    "@types/nova-editor-node": "^4.1.4",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "eslint": "^8.20.0",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  }
 }
