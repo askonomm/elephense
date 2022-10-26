@@ -1,4 +1,5 @@
 import * as config from './config';
+import { sendNotification, createInfoNotice } from './notifications';
 
 class IntelephenseLanguageServer extends Disposable {
 	private languageClient: LanguageClient | null;
@@ -10,9 +11,7 @@ class IntelephenseLanguageServer extends Disposable {
 		this.languageClient = null;
 		this._clientPath =
 			config.getConfiguredIntelephensePath() ??
-			this.getBundledIntelephensePath();
-
-		console.info(`Found intelephense path: ${this._clientPath}`);
+			config.getBundledIntelephensePath();
 	}
 
 	set clientPath(path: string) {
@@ -22,22 +21,31 @@ class IntelephenseLanguageServer extends Disposable {
 		return this._clientPath;
 	}
 
-	private getBundledIntelephensePath() {
-		return nova.path.join(
-			nova.extension.path,
-			'node_modules',
-			'intelephense',
-			'lib',
-			'intelephense.js'
-		);
-	}
-
 	async deactivate() {
 		this.dispose();
 	}
 
+	async handleStop(error: Error | undefined) {
+		if (error) {
+			console.info('Intelephense stopped');
+			sendNotification(
+				createInfoNotice(
+					'intelephense-unexpectedly-stopped',
+					nova.localize('Intelephense stopped'),
+					nova.localize(
+						'Intelephense unexpectedly stopped. See extension console for more details.'
+					)
+				)
+			);
+
+			console.error(
+				'Intelephense stopped with the following error:',
+				error.message
+			);
+		}
+	}
+
 	async start() {
-		console.info('Starting Intelephense');
 		if (this.languageClient) {
 			await this.dispose();
 		}
@@ -54,32 +62,34 @@ class IntelephenseLanguageServer extends Disposable {
 				clearCache: false,
 			},
 		};
-		const client = new LanguageClient(
-			'intelephense',
-			'Intelephense Language Server',
-			serverOptions,
-			clientOptions
-		);
 
 		try {
-			console.info('Starting client...');
+			this.languageClient = new LanguageClient(
+				'intelephense',
+				'Intelephense Language Server',
+				serverOptions,
+				clientOptions
+			);
+			this.didStopDisposable = this.languageClient.onDidStop(
+				this.handleStop
+			);
+
 			// Start the client
-			client.start();
-			console.info('Client started.');
-
-			this.didStopDisposable = client.onDidStop((error) => {
-				console.info('Intelephense stopped');
-				if (error) {
-					console.error(error);
-				}
-			});
-
-			this.languageClient = client;
+			this.languageClient.start();
 		} catch (err) {
-			// If the .start() method throws, it's likely because the path to the language server is invalid
 			if (nova.inDevMode()) {
 				console.error(err);
 			}
+
+			sendNotification(
+				createInfoNotice(
+					'unable-to-start-intelephense',
+					nova.localize('Intelephense could not be started'),
+					nova.localize(
+						'The extension could not start the Intelephense language server. See extension console for details.'
+					)
+				)
+			);
 		}
 	}
 
@@ -90,6 +100,14 @@ class IntelephenseLanguageServer extends Disposable {
 		onStop = this.languageClient?.onDidStop(() => {
 			this.start();
 			onStop?.dispose();
+
+			sendNotification(
+				createInfoNotice(
+					'intelephense-restarted',
+					nova.localize('Intelephense restarted'),
+					nova.localize('Intelephense has been restarted')
+				)
+			);
 		});
 
 		await this.dispose();
@@ -99,13 +117,11 @@ class IntelephenseLanguageServer extends Disposable {
 		if (this.didStopDisposable) {
 			this.didStopDisposable.dispose();
 			this.didStopDisposable = undefined;
-			console.info('language client disposables disposed and cleared');
 		}
 
 		if (this.languageClient) {
 			this.languageClient.stop();
 			this.languageClient = null;
-			console.info('language client stopped and cleared');
 		}
 	}
 }
