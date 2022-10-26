@@ -1,6 +1,8 @@
 import { defaultStubs } from './defaults';
+import * as config from './config';
 import { IntelephenseLanguageServer } from './language-server';
 import { installOrUpdateIntelephense } from './installer';
+import { createInfoNotice, sendNotification } from './notifications';
 
 let langserver: IntelephenseLanguageServer | null = null;
 
@@ -26,13 +28,24 @@ exports.activate = async function () {
 		await installOrUpdateIntelephense();
 
 		langserver = new IntelephenseLanguageServer();
-		langserver.start();
 		nova.subscriptions.add(langserver);
+
+		langserver.start();
 	} catch (e) {
 		console.error(
-			'Something went wrong when updating or installing Intelephense:'
+			'Something went wrong when updating or installing Intelephense:',
+			e
 		);
-		console.error(e);
+
+		sendNotification(
+			createInfoNotice(
+				'failed-to-install-intelephense',
+				nova.localize('Could not install bundled Intelephense'),
+				nova.localize(
+					'Something went wrong while updating or installing Intelephense. See extension console for details.'
+				)
+			)
+		);
 	}
 
 	// Make sure we start the language server last, since all events must be registered prior to
@@ -42,11 +55,40 @@ exports.activate = async function () {
 	nova.config.observe(
 		'intelephense.language-server-path',
 		(path: string, _: string) => {
-			console.info(`Maybe updating Intelephense path: ${path}`);
-			if (langserver && path && path !== langserver.clientPath) {
+			if (!langserver) {
+				return;
+			}
+
+			if (path && path !== langserver.clientPath) {
 				console.info('Intelephense path updated');
 				langserver.clientPath = path;
 				langserver.restart();
+
+				sendNotification(
+					createInfoNotice(
+						'new-intelephense-path',
+						nova.localize('New Intelephense path detected'),
+						nova.localize(
+							'Intelephense has been restarted and is now using the newly provided path.'
+						)
+					)
+				);
+			} else if (
+				!path &&
+				config.getBundledIntelephensePath() !== langserver.clientPath
+			) {
+				langserver.clientPath = config.getBundledIntelephensePath();
+				langserver.restart();
+
+				sendNotification(
+					createInfoNotice(
+						'bundled-intelephense-path',
+						nova.localize('New Intelephense path detected'),
+						nova.localize(
+							'Intelephense has been restarted and is now using the bundled version of the language server.'
+						)
+					)
+				);
 			}
 		}
 	);
