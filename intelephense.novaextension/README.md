@@ -40,10 +40,6 @@ Intelephense requires some additional tools to be installed on your Mac:
 
 > If you want to use a different version of Intelephense than the bundled version you can set a path to the executable in the extension preferences.
 
-<!-- This comment is here to make sure these are separate notes -->
-
-> Intelephense will occasionally fail to complete the necessary start-up routines and you won't get hover information, autocompletion, etc. When this happens please restart Intelephense using the provided command in **Extensions > Intelephense > Restart Intelephense**.
-
 ## Usage
 
 <!--
