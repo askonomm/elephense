@@ -7,12 +7,10 @@ let langserver: IntelephenseLanguageServer | null = null;
 nova.commands.register(
 	'com.thorlaksson.intelephense.restartServer',
 	(_workspace) => {
-		if (langserver) {
-			langserver.stop();
-			langserver = null;
+		if (!langserver) {
+			langserver = new IntelephenseLanguageServer();
 		}
-		// Constructor automatically starts the server.
-		langserver = new IntelephenseLanguageServer();
+		langserver.restart();
 	}
 );
 
@@ -44,7 +42,7 @@ exports.activate = async function () {
 	nova.config.observe(
 		'intelephense.language-server-path',
 		(path: string, _: string) => {
-			console.info(`setting Intelephense path: ${path}`);
+			console.info(`Maybe updating Intelephense path: ${path}`);
 			if (langserver && path && path !== langserver.clientPath) {
 				console.info('Intelephense path updated');
 				langserver.clientPath = path;

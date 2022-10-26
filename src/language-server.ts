@@ -33,13 +33,13 @@ class IntelephenseLanguageServer extends Disposable {
 	}
 
 	async deactivate() {
-		this.stop();
+		this.dispose();
 	}
 
 	async start() {
 		console.info('Starting Intelephense');
 		if (this.languageClient) {
-			await this.stop();
+			await this.dispose();
 		}
 
 		// Create the client
@@ -84,24 +84,29 @@ class IntelephenseLanguageServer extends Disposable {
 	}
 
 	async restart() {
-		await this.stop();
-		this.start();
+		// LanguageClient is stopped asynchronously so we must make sure we wait for it to
+		// completely stop before trying to start a new LanguageClient instance.
+		let onStop: Disposable | undefined = undefined;
+		onStop = this.languageClient?.onDidStop(() => {
+			this.start();
+			onStop?.dispose();
+		});
+
+		await this.dispose();
 	}
 
-	async stop() {
+	async dispose() {
 		if (this.didStopDisposable) {
 			this.didStopDisposable.dispose();
 			this.didStopDisposable = undefined;
+			console.info('language client disposables disposed and cleared');
 		}
 
 		if (this.languageClient) {
 			this.languageClient.stop();
 			this.languageClient = null;
+			console.info('language client stopped and cleared');
 		}
-	}
-
-	async dispose() {
-		this.stop();
 	}
 }
 
