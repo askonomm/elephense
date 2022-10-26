@@ -1,3 +1,5 @@
+import { createInfoNotice, sendNotification } from './notifications';
+
 const getIntelephenseVersion = () => {
 	return new Promise((resolve, reject) => {
 		const getIntelephensePath = new Process('usr/bin/env', {
@@ -58,6 +60,16 @@ export const installOrUpdateIntelephense = async () => {
 		console.error(e);
 	}
 
+	sendNotification(
+		createInfoNotice(
+			'intelephense-will-be-installed',
+			nova.localize('Intelephense must be updated or installed'),
+			nova.localize(
+				'A new version of Intelephense will now be installed.'
+			)
+		)
+	);
+
 	return new Promise((resolve, reject) => {
 		// Install via npm.
 		const installProcess = new Process('usr/bin/env', {
@@ -71,6 +83,16 @@ export const installOrUpdateIntelephense = async () => {
 				reject('Failed to install intelephense');
 			}
 			console.info('Intelephense successfully installed');
+
+			sendNotification(
+				createInfoNotice(
+					'intelephense-installed',
+					nova.localize('Intelephense installed or updated'),
+					nova.localize(
+						'A new version of Intelephense has been successfully installed.'
+					)
+				)
+			);
 			resolve(true);
 		});
 
