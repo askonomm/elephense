@@ -3,7 +3,7 @@
 	"name": "Intelephense",
 	"organization": "Kristófer Reykjalín",
 	"description": "High performance, advanced PHP language support for Nova",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"categories": ["completions", "languages"],
 	"bugs": "https://lists.sr.ht/~reykjalin/public-inbox",
 	"homepage": "https://git.sr.ht/~reykjalin/nova-intelephense",

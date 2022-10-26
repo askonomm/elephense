@@ -1,3 +1,8 @@
+## Version 1.2.0 - October 26, 2022
+
+* Dev - Major refactor of extension code; migrated to TypeScript and made further changes to improve maintainability.
+* Tweak - Updated bundled Intelephense version to 1.8.2.
+
 ## Version 1.1.1 - January 7, 2022
 
 * Tweak - Cache is no longer cleared on startup; forgot to change this back after development for version 1.1.0.
