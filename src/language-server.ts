@@ -12,6 +12,12 @@ class IntelephenseLanguageServer extends Disposable {
 		this._clientPath =
 			config.getConfiguredIntelephensePath() ??
 			config.getBundledIntelephensePath();
+
+		if (config.shouldLogDebugInformation()) {
+			console.info(
+				`Language client path initialized to: ${this._clientPath}`
+			);
+		}
 	}
 
 	set clientPath(path: string) {
@@ -27,7 +33,6 @@ class IntelephenseLanguageServer extends Disposable {
 
 	async handleStop(error: Error | undefined) {
 		if (error) {
-			console.info('Intelephense stopped');
 			sendNotification(
 				createInfoNotice(
 					'intelephense-unexpectedly-stopped',
@@ -47,6 +52,11 @@ class IntelephenseLanguageServer extends Disposable {
 
 	async start() {
 		if (this.languageClient) {
+			if (config.shouldLogDebugInformation()) {
+				console.info(
+					'Instance of the language client already exists, disposing before starting a new instance.'
+				);
+			}
 			await this.dispose();
 		}
 
@@ -63,6 +73,17 @@ class IntelephenseLanguageServer extends Disposable {
 			},
 		};
 
+		if (config.shouldLogDebugInformation()) {
+			console.info(
+				'Starting language server with server options: ',
+				JSON.stringify(serverOptions)
+			);
+			console.info(
+				'Starting language server with client options: ',
+				JSON.stringify(clientOptions)
+			);
+		}
+
 		try {
 			this.languageClient = new LanguageClient(
 				'intelephense',
@@ -77,9 +98,7 @@ class IntelephenseLanguageServer extends Disposable {
 			// Start the client
 			this.languageClient.start();
 		} catch (err) {
-			if (nova.inDevMode()) {
-				console.error(err);
-			}
+			console.error(err);
 
 			sendNotification(
 				createInfoNotice(
@@ -115,11 +134,19 @@ class IntelephenseLanguageServer extends Disposable {
 
 	async dispose() {
 		if (this.didStopDisposable) {
+			if (config.shouldLogDebugInformation()) {
+				console.info('Disposing of language client stop handler.');
+			}
+
 			this.didStopDisposable.dispose();
 			this.didStopDisposable = undefined;
 		}
 
 		if (this.languageClient) {
+			if (config.shouldLogDebugInformation()) {
+				console.info('Stopping and clearing language client.');
+			}
+
 			this.languageClient.stop();
 			this.languageClient = null;
 		}
