@@ -1,3 +1,4 @@
+import * as config from './config';
 import { createInfoNotice, sendNotification } from './notifications';
 
 const getIntelephenseVersion = () => {
@@ -18,18 +19,36 @@ const getIntelephenseVersion = () => {
 		getIntelephensePath.onStdout((line) => {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const [_, npmVersion] = line.trim().split('@');
-			console.info(
-				`Bundled Intelephense currently at version ${npmVersion}`
-			);
+
+			if (config.shouldLogDebugInformation()) {
+				console.info(
+					'NPM found the following intelephense versions: ',
+					line
+				);
+				console.info(
+					`Bundled Intelephense detected as version ${npmVersion}`
+				);
+			}
 
 			if (!npmVersion) {
+				if (config.shouldLogDebugInformation()) {
+					console.info('No installation of Intelephense detected.');
+				}
+
 				reject('Intelephense is not installed.');
 			}
+
 			resolve(npmVersion);
 		});
 
 		getIntelephensePath.onDidExit((exitStatus) => {
 			if (0 !== exitStatus) {
+				if (config.shouldLogDebugInformation()) {
+					console.info(
+						'NPM exited with an error when trying to find an installation of the bundled Intelephense.'
+					);
+				}
+
 				console.error(
 					`Intelephense is not installed. Exited with code ${exitStatus}`
 				);
@@ -49,15 +68,21 @@ const hasCorrectIntelephenseVersion = async () => {
 export const installOrUpdateIntelephense = async () => {
 	try {
 		if (await hasCorrectIntelephenseVersion()) {
-			console.info(
-				'Intelephense already installed and has the right version.'
-			);
+			if (config.shouldLogDebugInformation()) {
+				console.info(
+					'Intelephense already installed and has the right version.'
+				);
+			}
+
 			return;
 		}
-		console.info('Bundled intelephense is out of date, updating...');
 	} catch (e) {
-		console.error('Intelephense not installed (probably third time?)');
-		console.error(e);
+		if (config.shouldLogDebugInformation()) {
+			console.info(
+				'Something went wrong while looking for an installation of the bundled Intelephense version.'
+			);
+			console.error(e);
+		}
 	}
 
 	sendNotification(
@@ -79,10 +104,20 @@ export const installOrUpdateIntelephense = async () => {
 
 		installProcess.onDidExit((exitStatus) => {
 			if (0 !== exitStatus) {
-				console.error('Failed to install Intelephense');
+				sendNotification(
+					createInfoNotice(
+						'failed-to-install-intelephense',
+						nova.localize(
+							'Failed to update or install Intelephense'
+						),
+						nova.localize(
+							'Something went wrong when trying to install the bundled version of the Intelephense language server.'
+						)
+					)
+				);
+
 				reject('Failed to install intelephense');
 			}
-			console.info('Intelephense successfully installed');
 
 			sendNotification(
 				createInfoNotice(
