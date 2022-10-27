@@ -1,3 +1,5 @@
+import * as config from './config';
+
 const createNotification = (
 	id: string,
 	title: string,
@@ -26,6 +28,12 @@ const createNotification = (
 
 	if (actions) {
 		notification.actions = actions;
+	}
+
+	if (config.shouldLogDebugInformation()) {
+		console.info(
+			`Created a notice with the following information:\ntitle: ${title}\nbody: ${body}\ntype: ${notificationType}\ntextInputValue: ${textInputValue}\ntextInputPlaceholder: ${textInputPlaceholder}\nactions: ${actions}`
+		);
 	}
 
 	return notification;
