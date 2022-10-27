@@ -216,6 +216,19 @@
 					"default": false
 				}
 			]
+		},
+		{
+			"type": "section",
+			"title": "Extension development and debugging settings",
+			"children": [
+				{
+					"key": "intelephense.debug.debug-mode",
+					"title": "Enable debug mode",
+					"type": "boolean",
+					"description": "When enabled detailed information will be printed to the extension console.",
+					"default": false
+				}
+			]
 		}
 	],
 

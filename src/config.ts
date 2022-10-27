@@ -11,3 +11,10 @@ export const getBundledIntelephensePath = () => {
 		'intelephense.js'
 	);
 };
+
+export const shouldLogDebugInformation = () => {
+	return (
+		nova.config.get('intelephense.environment.debugMode', 'boolean') ||
+		nova.inDevMode()
+	);
+};
