@@ -1,8 +1,8 @@
 import { defaultStubs } from './defaults';
-import * as config from './config';
 import { IntelephenseLanguageServer } from './language-server';
 import { installOrUpdateIntelephense } from './installer';
 import { createInfoNotice, sendNotification } from './notifications';
+import { languageServerPathObserver, stubsObserver } from './observers';
 
 let langserver: IntelephenseLanguageServer | null = null;
 
@@ -54,76 +54,21 @@ exports.activate = async function () {
 	// Observe the configuration setting for the server's location, and restart the server on change
 	nova.config.observe(
 		'intelephense.language-server-path',
-		(path: string, _: string) => {
-			if (!langserver) {
-				return;
-			}
-
-			if (path && path !== langserver.clientPath) {
-				console.info('Intelephense path updated');
-				langserver.clientPath = path;
-				langserver.restart();
-
-				sendNotification(
-					createInfoNotice(
-						'new-intelephense-path',
-						nova.localize('New Intelephense path detected'),
-						nova.localize(
-							'Intelephense has been restarted and is now using the newly provided path.'
-						)
-					)
-				);
-			} else if (
-				!path &&
-				config.getBundledIntelephensePath() !== langserver.clientPath
-			) {
-				langserver.clientPath = config.getBundledIntelephensePath();
-				langserver.restart();
-
-				sendNotification(
-					createInfoNotice(
-						'bundled-intelephense-path',
-						nova.localize('New Intelephense path detected'),
-						nova.localize(
-							'Intelephense has been restarted and is now using the bundled version of the language server.'
-						)
-					)
-				);
-			}
-		}
+		languageServerPathObserver,
+		// TS throws an error here because of missing declaration in DefinitelyTyped.
+		langserver
+	);
+	nova.workspace.config.observe(
+		'intelephense.language-server-path',
+		languageServerPathObserver,
+		// TS throws an error here because of missing declaration in DefinitelyTyped.
+		langserver
 	);
 
 	// Watch for changes in project-specific stubs.
 	nova.workspace.config.onDidChange(
 		'intelephense.workspace-stubs',
-		(newSettings: string[], _oldSettings) => {
-			const shouldReset = () => {
-				if (newSettings.length !== defaultStubs.length) {
-					return false;
-				}
-
-				newSettings.forEach((stub) => {
-					if (!defaultStubs.includes(stub)) {
-						return false;
-					}
-				});
-				return true;
-			};
-
-			// If project stubs are set to the default value we instead use the global stubs.
-			if (shouldReset()) {
-				if (nova.inDevMode()) {
-					console.log('Resetting workspace stubs');
-				}
-				const globalStubs = nova.config.get('intelephense.stubs');
-				nova.workspace.config.set('intelephense.stubs', globalStubs);
-			} else {
-				if (nova.inDevMode()) {
-					console.log('Updating workspace stubs');
-				}
-				nova.workspace.config.set('intelephense.stubs', newSettings);
-			}
-		}
+		stubsObserver
 	);
 };
 
