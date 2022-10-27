@@ -1,6 +1,6 @@
 {
 	"name": "nova-intelephense",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "High performance, advanced PHP language support for Nova",
 	"main": "index.js",
 	"scripts": {

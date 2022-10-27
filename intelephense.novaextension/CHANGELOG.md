@@ -1,3 +1,7 @@
+## Version 1.2.1 - October 26, 2022
+
+* Fix - Custom path for Intelephense in workspace settings now respected.
+
 ## Version 1.2.0 - October 26, 2022
 
 * Dev - Major refactor of extension code; migrated to TypeScript and made further changes to improve maintainability.
