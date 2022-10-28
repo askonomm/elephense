@@ -4,7 +4,7 @@ import { installOrUpdateIntelephense } from './installer';
 import { createInfoNotice, sendNotification } from './notifications';
 import { languageServerPathObserver, stubsObserver } from './observers';
 
-let langserver: IntelephenseLanguageServer | null = null;
+let langserver: IntelephenseLanguageServer | undefined = undefined;
 
 nova.commands.register(
 	'com.thorlaksson.intelephense.restartServer',
@@ -76,6 +76,6 @@ exports.deactivate = function () {
 	// Clean up state before the extension is deactivated
 	if (langserver) {
 		langserver.deactivate();
-		langserver = null;
+		langserver = undefined;
 	}
 };
