@@ -55,13 +55,11 @@ exports.activate = async function () {
 	nova.config.observe(
 		'intelephense.language-server-path',
 		languageServerPathObserver,
-		// TS throws an error here because of missing declaration in DefinitelyTyped.
 		langserver
 	);
 	nova.workspace.config.observe(
 		'intelephense.language-server-path',
 		languageServerPathObserver,
-		// TS throws an error here because of missing declaration in DefinitelyTyped.
 		langserver
 	);
 
