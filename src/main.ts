@@ -31,6 +31,27 @@ exports.activate = async function () {
 		nova.subscriptions.add(langserver);
 
 		langserver.start();
+
+		// Make sure we start the language server last, since all events must be registered prior to
+		// entering the constructor.
+
+		// Observe the configuration setting for the server's location, and restart the server on change
+		nova.config.observe(
+			'intelephense.language-server-path',
+			languageServerPathObserver,
+			langserver
+		);
+		nova.workspace.config.observe(
+			'intelephense.language-server-path',
+			languageServerPathObserver,
+			langserver
+		);
+
+		// Watch for changes in project-specific stubs.
+		nova.workspace.config.onDidChange(
+			'intelephense.workspace-stubs',
+			stubsObserver
+		);
 	} catch (e) {
 		console.error(
 			'Something went wrong when updating or installing Intelephense:',
@@ -47,27 +68,6 @@ exports.activate = async function () {
 			)
 		);
 	}
-
-	// Make sure we start the language server last, since all events must be registered prior to
-	// entering the constructor.
-
-	// Observe the configuration setting for the server's location, and restart the server on change
-	nova.config.observe(
-		'intelephense.language-server-path',
-		languageServerPathObserver,
-		langserver
-	);
-	nova.workspace.config.observe(
-		'intelephense.language-server-path',
-		languageServerPathObserver,
-		langserver
-	);
-
-	// Watch for changes in project-specific stubs.
-	nova.workspace.config.onDidChange(
-		'intelephense.workspace-stubs',
-		stubsObserver
-	);
 };
 
 exports.deactivate = function () {
