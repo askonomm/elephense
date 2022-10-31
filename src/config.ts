@@ -14,7 +14,7 @@ export const getBundledIntelephensePath = () => {
 
 export const shouldLogDebugInformation = () => {
 	return (
-		nova.config.get('intelephense.environment.debugMode', 'boolean') ||
+		nova.config.get('intelephense.debug.debug-mode', 'boolean') ||
 		nova.inDevMode()
 	);
 };
