@@ -1,3 +1,7 @@
+## Version 1.2.2 - October 31, 2022
+
+* Fix - Debug setting is now correctly retrieved.
+
 ## Version 1.2.1 - October 26, 2022
 
 * Fix - Custom path for Intelephense in workspace settings now respected.
