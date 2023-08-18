@@ -4,44 +4,21 @@ import { createInfoNotice, sendNotification } from './notifications';
 const getIntelephenseVersion = () => {
 	return new Promise((resolve, reject) => {
 		const getIntelephensePath = new Process('usr/bin/env', {
-			args: [
-				'npm',
-				'ls',
-				'intelephense',
-				'--parseable',
-				'--long',
-				'--depth',
-				'0',
-			],
+			args: ['npm', 'ls', 'intelephense', '--json'],
 			cwd: nova.extension.path,
 		});
 
+		let getPathCommandOutput = '';
+
 		getIntelephensePath.onStdout((line) => {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			const [_, npmVersion] = line.trim().split('@');
-
-			if (config.shouldLogDebugInformation()) {
-				console.info(
-					'NPM found the following intelephense versions: ',
-					line
-				);
-				console.info(
-					`Bundled Intelephense detected as version ${npmVersion}`
-				);
-			}
-
-			if (!npmVersion) {
-				if (config.shouldLogDebugInformation()) {
-					console.info('No installation of Intelephense detected.');
-				}
-
-				reject('Intelephense is not installed.');
-			}
-
-			resolve(npmVersion);
+			getPathCommandOutput += line;
 		});
 
 		getIntelephensePath.onDidExit((exitStatus) => {
+			if (config.shouldLogDebugInformation()) {
+				console.info('npm ls returned: ', getPathCommandOutput);
+			}
+
 			if (0 !== exitStatus) {
 				if (config.shouldLogDebugInformation()) {
 					console.info(
@@ -54,6 +31,30 @@ const getIntelephenseVersion = () => {
 				);
 				reject('Intelephense is not installed.');
 			}
+
+			try {
+				const intelephenseInfo = JSON.parse(getPathCommandOutput);
+				const version =
+					intelephenseInfo?.dependencies?.intelephense?.version;
+
+				if (config.shouldLogDebugInformation()) {
+					console.info(`found version: ${version}`);
+				}
+
+				if (version) {
+					resolve(version);
+				}
+
+				reject('Intelephense not installed');
+			} catch (e) {
+				if (config.shouldLogDebugInformation()) {
+					console.info(
+						'Could not find intelephense installation:',
+						e
+					);
+				}
+				reject('Intelephense is not installed.');
+			}
 		});
 
 		getIntelephensePath.start();
@@ -62,7 +63,7 @@ const getIntelephenseVersion = () => {
 
 const hasCorrectIntelephenseVersion = async () => {
 	const installedVersion = await getIntelephenseVersion();
-	return '1.8.2' === installedVersion;
+	return '1.9.5' === installedVersion;
 };
 
 export const installOrUpdateIntelephense = async () => {
