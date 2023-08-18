@@ -189,114 +189,132 @@
 			"children": [
 				{
 					"key": "intelephense.diagnostics.enable",
-					"title": "Enables diagnostics.",
+					"title": "Enabled",
+					"description": "Enables diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.run",
-					"title": "Controls when diagnostics are run.",
+					"title": "Run diagnostics",
+					"description": "Controls when diagnostics are run.",
 					"type": "enum",
 					"radio": true,
 					"values": [
-						[ "onType", "Diagnostics will run as changes are made to the document." ],
-						[ "onSave", "Diagnostics will run when the document is saved." ]
+						[ "onType", "as changes are made to the document." ],
+						[ "onSave", "when the document is saved." ]
 					],
 					"default": "onType"
 				},
 				{
 					"key": "intelephense.diagnostics.embeddedLanguages",
-					"title": "Enables diagnostics in embedded languages.",
+					"title": "Embedded languages",
+					"description": "Enables diagnostics in embedded languages.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.undefinedVariables",
-					"title": "Enables undefined variable diagnostics.",
+					"title": "Undefined variables",
+					"description": "Enables undefined variable diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.undefinedTypes",
-					"title": "Enables undefined class, interface and trait diagnostics.",
+					"title": "Undefined class, interface, and trait",
+					"description": "Enables undefined class, interface, and trait diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.undefinedFunctions",
-					"title": "Enables undefined function diagnostics.",
+					"title": "Undefined function",
+					"description": "Enables undefined function diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.undefinedConstants",
-					"title": "Enables undefined constant diagnostics.",
+					"title": "Undefined constant",
+					"description": "Enables undefined constant diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.undefinedClassConstants",
-					"title": "Enables undefined class constant diagnostics.",
+					"title": "Undefined class constant",
+					"description": "Enables undefined class constant diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.undefinedMethods",
-					"title": "Enables undefined method diagnostics.",
+					"title": "Undefined method",
+					"description": "Enables undefined method diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.undefinedProperties",
-					"title": "Enables undefined static property diagnostics.",
+					"title": "Undefined static property",
+					"description": "Enables undefined static property diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.unusedSymbols",
-					"title": "Enables unused variable, private member, and import diagnostics.",
+					"title": "Undefined variable, private member, and import",
+					"description": "Enables unused variable, private member, and import diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.unexpectedTokens",
-					"title": "Enables unexpected token diagnostics.",
+					"title": "Unexpected token",
+					"description": "Enables unexpected token diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.duplicateSymbols",
-					"title": "Enables duplicate symbol diagnostics.",
+					"title": "Duplicate symbol",
+					"description": "Enables duplicate symbol diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.argumentCount",
-					"title": "Enables argument count diagnostics.",
+					"title": "Argument count",
+					"description": "Enables argument count diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.typeErrors",
-					"title": "Enables diagnostics on type compatibility of arguments, property assignments, and return statements where types have been declared.",
+					"title": "Compatibility of arguments, property assignments, and return statements",
+					"description": "Enables diagnostics on type compatibility of arguments, property assignments, and return statements where types have been declared.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.deprecated",
-					"title": "Enables deprecated diagnostics.",
+					"title": "Deprecated",
+					"description": "Enables deprecated diagnostics.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.languageConstraints",
-					"title": "Enables reporting of various language constraint errors.",
+					"title": "Languate constraint errors",
+					"description": "Enables reporting of various language constraint errors.",
 					"type": "boolean",
 					"default": true
 				},
 				{
 					"key": "intelephense.diagnostics.implementationErrors",
-					"title": "Enables reporting of problems associated with method and class implementations. For example, unimplemented methods or method signature incompatibilities.",
+					"title": "Problems associated with method and class implementations",
+					"description": "Enables reporting of problems associated with method and class implementations. For example, unimplemented methods or method signature incompatibilities.",
 					"type": "boolean",
 					"default": true
 				}
