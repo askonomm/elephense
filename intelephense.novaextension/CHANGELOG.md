@@ -1,5 +1,6 @@
 ## Version 1.3.0 - August 18, 2022
 
+* Add - Diagnostics lanaguage server options are now available.
 * Tweak - Update bundled Intelephense version to 1.9.5
 
 
