@@ -1,5 +1,7 @@
 ## Version 1.3.0 - August 18, 2022
 
+* Tweak - Update bundled Intelephense version to 1.9.5
+
 
 ## Version 1.2.2 - October 31, 2022
 
