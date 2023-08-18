@@ -1,3 +1,6 @@
+## Version 1.3.0 - August 18, 2022
+
+
 ## Version 1.2.2 - October 31, 2022
 
 * Fix - Debug setting is now correctly retrieved.
