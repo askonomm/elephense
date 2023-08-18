@@ -184,6 +184,126 @@
 		},
 		{
 			"type": "section",
+			"title": "Diagnostics",
+			"link": "https://github.com/bmewburn/intelephense-docs/blob/master/installation.md#configuration-options",
+			"children": [
+				{
+					"key": "intelephense.diagnostics.enable",
+					"title": "Enables diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.run",
+					"title": "Controls when diagnostics are run.",
+					"type": "enum",
+					"radio": true,
+					"values": [
+						[ "onType", "Diagnostics will run as changes are made to the document." ],
+						[ "onSave", "Diagnostics will run when the document is saved." ]
+					],
+					"default": "onType"
+				},
+				{
+					"key": "intelephense.diagnostics.embeddedLanguages",
+					"title": "Enables diagnostics in embedded languages.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.undefinedVariables",
+					"title": "Enables undefined variable diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.undefinedTypes",
+					"title": "Enables undefined class, interface and trait diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.undefinedFunctions",
+					"title": "Enables undefined function diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.undefinedConstants",
+					"title": "Enables undefined constant diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.undefinedClassConstants",
+					"title": "Enables undefined class constant diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.undefinedMethods",
+					"title": "Enables undefined method diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.undefinedProperties",
+					"title": "Enables undefined static property diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.unusedSymbols",
+					"title": "Enables unused variable, private member, and import diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.unexpectedTokens",
+					"title": "Enables unexpected token diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.duplicateSymbols",
+					"title": "Enables duplicate symbol diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.argumentCount",
+					"title": "Enables argument count diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.typeErrors",
+					"title": "Enables diagnostics on type compatibility of arguments, property assignments, and return statements where types have been declared.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.deprecated",
+					"title": "Enables deprecated diagnostics.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.languageConstraints",
+					"title": "Enables reporting of various language constraint errors.",
+					"type": "boolean",
+					"default": true
+				},
+				{
+					"key": "intelephense.diagnostics.implementationErrors",
+					"title": "Enables reporting of problems associated with method and class implementations. For example, unimplemented methods or method signature incompatibilities.",
+					"type": "boolean",
+					"default": true
+				}
+			]
+		},
+		{
+			"type": "section",
 			"title": "Type Declarations and Annotations",
 			"link": "https://github.com/bmewburn/intelephense-docs/blob/master/gettingStarted.md#type-declarations-and-annotations",
 			"children": [
