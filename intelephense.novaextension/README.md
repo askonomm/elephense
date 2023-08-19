@@ -56,6 +56,14 @@ Once the extension is activated it will attempt to install Intelephense in the e
 🎈 Alternatively, if your extension runs automatically (as in the case of a validator), consider showing users what they can expect to see:
 -->
 
+### To activate a premium license
+
+- Run the **Extensions → Intelephense → Enter license key** command.
+- Type your license key in the notification box that appears in the top-right corner of the editor.
+- Click submit.
+
+If the activation is successful you'll see a notice informing you of the success and Intelephense will be restarted.
+
 ### Workspace specific stubs
 
 You can configure stubs that Intelephense will use on a per-project basis by opening **Project → Project Settings → Intelephense** and changing the stubs list there.
@@ -70,7 +78,7 @@ To quickly reset the stubs list back to default values you can use the **Extensi
 
 To configure global preferences, open **Extensions → Extension Library...** then select Intelephense's **Preferences** tab.
 
-<!-- You can also configure preferences on a per-project basis in **Project → Project Settings...** -->
+You can also configure preferences on a per-project basis in **Project → Project Settings...**
 
 <!--
 👋 That's it! Happy developing!
