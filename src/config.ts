@@ -18,3 +18,12 @@ export const shouldLogDebugInformation = () => {
 		nova.inDevMode()
 	);
 };
+
+export const isEnabledForWorkspace = () => {
+	return (
+		nova.workspace.config.get(
+			'intelephense.extension.enabled',
+			'boolean'
+		) ?? true
+	);
+};

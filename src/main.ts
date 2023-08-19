@@ -1,8 +1,13 @@
 import { defaultStubs } from './defaults';
+import { isEnabledForWorkspace } from './config';
 import { IntelephenseLanguageServer } from './language-server';
 import { installOrUpdateIntelephense } from './installer';
 import { createInfoNotice, sendNotification } from './notifications';
-import { languageServerPathObserver, stubsObserver } from './observers';
+import {
+	languageServerPathObserver,
+	stubsObserver,
+	enabledForWorkspaceObserver,
+} from './observers';
 
 let langserver: IntelephenseLanguageServer | undefined = undefined;
 
@@ -30,7 +35,9 @@ exports.activate = async function () {
 		langserver = new IntelephenseLanguageServer();
 		nova.subscriptions.add(langserver);
 
-		langserver.start();
+		if (isEnabledForWorkspace()) {
+			langserver.start();
+		}
 
 		// Make sure we start the language server last, since all events must be registered prior to
 		// entering the constructor.
@@ -51,6 +58,11 @@ exports.activate = async function () {
 		nova.workspace.config.onDidChange(
 			'intelephense.workspace-stubs',
 			stubsObserver
+		);
+		nova.workspace.config.observe(
+			'intelephense.extension.enabled',
+			enabledForWorkspaceObserver,
+			langserver
 		);
 	} catch (e) {
 		console.error(

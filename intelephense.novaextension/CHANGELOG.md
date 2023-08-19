@@ -1,6 +1,7 @@
 ## Version 1.3.0 - August 18, 2022
 
 * Add - Diagnostics lanaguage server options are now available.
+* Add - Option to enable and disable Intelephense at the workspace level.
 * Tweak - Update bundled Intelephense version to 1.9.5
 
 

@@ -77,3 +77,22 @@ export const stubsObserver = (
 		nova.workspace.config.set('intelephense.stubs', newSettings);
 	}
 };
+
+export function enabledForWorkspaceObserver(
+	this: IntelephenseLanguageServer,
+	isEnabled: boolean,
+	_: boolean
+) {
+	console.info('is enabled for workspace:', isEnabled);
+
+	// Do nothing if the languageserver doesn't exist.
+	if (!this) {
+		return;
+	}
+
+	if (isEnabled) {
+		this.start();
+	} else {
+		this.dispose();
+	}
+}

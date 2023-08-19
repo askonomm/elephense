@@ -372,6 +372,13 @@
 
 	"configWorkspace": [
 		{
+			"key": "intelephense.extension.enabled",
+			"title": "Enable Intelephense",
+			"description": "Enables Intelephense for this workspace.",
+			"type": "boolean",
+			"default": true
+		},
+		{
 			"key": "intelephense.language-server-path",
 			"title": "Intelephense Language Server Path",
 			"type": "path",
