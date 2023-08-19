@@ -27,6 +27,26 @@ class IntelephenseLanguageServer extends Disposable {
 		return this._clientPath;
 	}
 
+	public getWorkspaceStoragePath() {
+		const workspaceStoragePath = nova.extension.workspaceStoragePath;
+
+		if (!nova.fs.stat(workspaceStoragePath)?.isDirectory()) {
+			nova.fs.mkdir(workspaceStoragePath);
+		}
+
+		return workspaceStoragePath;
+	}
+
+	public getGlobalStoragePath() {
+		const globalStoragePath = nova.extension.globalStoragePath;
+
+		if (!nova.fs.stat(globalStoragePath)?.isDirectory()) {
+			nova.fs.mkdir(globalStoragePath);
+		}
+
+		return globalStoragePath;
+	}
+
 	async deactivate() {
 		this.dispose();
 	}
@@ -65,11 +85,15 @@ class IntelephenseLanguageServer extends Disposable {
 			path: '/usr/bin/env',
 			args: ['node', this._clientPath, '--stdio'],
 		};
+
 		const clientOptions = {
 			// The set of document syntaxes for which the server is valid
 			syntaxes: ['advphp', 'php', 'phtml'],
 			initializationOptions: {
 				clearCache: false,
+				storagePath: this.getWorkspaceStoragePath(),
+				globalStoragePath: this.getGlobalStoragePath(),
+				licenceKey: config.getLicenseKey(),
 			},
 		};
 

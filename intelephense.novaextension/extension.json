@@ -26,7 +26,8 @@
 
 	"entitlements": {
 		"process": true,
-		"filesystem": "readonly"
+		"filesystem": "readwrite",
+		"requests": true
 	},
 
 	"config": [
@@ -482,7 +483,11 @@
 				"title": "Reset Workspace Stubs",
 				"command": "com.thorlaksson.intelephense.resetWorkspaceStubs"
 			},
-			{ "separator": true }
+			{ "separator": true },
+			{
+				"title": "Enter license key",
+				"command": "com.thorlaksson.intelephense.enter-license-key"
+			}
 		]
 	}
 }

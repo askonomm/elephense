@@ -27,3 +27,13 @@ export const isEnabledForWorkspace = () => {
 		) ?? true
 	);
 };
+
+export const setLicenseKey = (key: string) => {
+	nova.config.set('com.thorlaksson.intelephense.license-key', key);
+};
+export const getLicenseKey = () => {
+	return nova.config.get(
+		'com.thorlaksson.intelephense.license-key',
+		'string'
+	);
+};

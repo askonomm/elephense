@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "tsc --watch"
+		"start": "esbuild src/main.ts --bundle --minify --platform=node --outfile=intelephense.novaextension/Scripts/main.js --watch",
+		"build": "esbuild src/main.ts --bundle --minify --platform=node --outfile=intelephense.novaextension/Scripts/main.js"
 	},
 	"repository": {
 		"type": "git",
@@ -20,7 +21,11 @@
 		"@typescript-eslint/eslint-plugin": "^5.31.0",
 		"@typescript-eslint/parser": "^5.31.0",
 		"eslint": "^8.20.0",
+		"hash.js": "^1.1.7",
 		"prettier": "^2.7.1",
 		"typescript": "^4.7.4"
+	},
+	"dependencies": {
+		"esbuild": "0.19.2"
 	}
 }
