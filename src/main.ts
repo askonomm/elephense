@@ -1,12 +1,7 @@
 import { sha256 } from 'hash.js';
 
 import { defaultStubs } from './defaults';
-import {
-	shouldLogDebugInformation,
-	isEnabledForWorkspace,
-	setLicenseKey,
-	getLicenseKey,
-} from './config';
+import * as config from './config';
 import { IntelephenseLanguageServer } from './language-server';
 import { installOrUpdateIntelephense } from './installer';
 import { createInfoNotice, sendNotification } from './notifications';
@@ -18,7 +13,7 @@ import {
 
 let langserver: IntelephenseLanguageServer | undefined = undefined;
 
-const activateLicense = async (licenseKey: string) => {
+const activateLicense = async (licenseKey: string): Promise<string> => {
 	return new Promise((resolve, reject) => {
 		let responseBody = '';
 
@@ -48,19 +43,31 @@ const activateLicense = async (licenseKey: string) => {
 		curlProcess.onDidExit((exitStatus) => {
 			responseBody = responseBody.trim();
 
-			if (shouldLogDebugInformation()) {
+			if (config.shouldLogDebugInformation()) {
 				console.info('license activation response: ', responseBody);
 			}
 
-			if (0 !== exitStatus) {
-				if (shouldLogDebugInformation()) {
+			const responseJson = (() => {
+				try {
+					return JSON.parse(responseBody);
+				} catch (_e) {
+					return false;
+				}
+			})();
+
+			if (
+				0 !== exitStatus ||
+				false === responseJson ||
+				responseJson?.error
+			) {
+				if (config.shouldLogDebugInformation()) {
 					console.info(
 						'curl exited with an error when trying to activate license.'
 					);
 				}
 
 				console.error(
-					`Could not activate license. Exited with code ${exitStatus}`
+					`Could not activate license. Exited with code ${exitStatus}, and resposne ${responseBody}`
 				);
 				reject(`Failed to activate license "${licenseKey}"`);
 			}
@@ -70,6 +77,51 @@ const activateLicense = async (licenseKey: string) => {
 
 		curlProcess.start();
 	});
+};
+
+const writeLicenseActivationInformationToFile = (
+	licenseKey: string,
+	licenseActivationInformation: string
+) => {
+	// Create global storage path if it doesn't already exist.
+	// This shouldn't happen, but good to cover this edge case.
+	if (!nova.fs.stat(nova.extension.globalStoragePath)?.isDirectory()) {
+		nova.fs.mkdir(nova.extension.globalStoragePath);
+	}
+
+	const path = nova.path.join(
+		nova.extension.globalStoragePath,
+		`intelephense_licence_key_${licenseKey}`
+	);
+	const f = nova.fs.open(path, 'w');
+	f.write(licenseActivationInformation);
+	f.close();
+};
+
+const getLicenseKeyFromUser = async () => {
+	const enterKeyNotice = new NotificationRequest(
+		'enter-intelephense-license-key'
+	);
+	enterKeyNotice.title = 'Intelephense license key';
+	enterKeyNotice.body = 'Enter your Intelephense license key.';
+	enterKeyNotice.type = 'input';
+	enterKeyNotice.actions = ['Submit', 'Cancel'];
+	enterKeyNotice.textInputValue = config.getLicenseKey() ?? '';
+	enterKeyNotice.textInputPlaceholder = 'ABCDEF123456789';
+
+	try {
+		const reply = await nova.notifications.add(enterKeyNotice);
+		// Only the 0 index int he action array is 'Submit'.
+		if (reply.actionIdx !== 0) {
+			return false;
+		}
+
+		return reply?.textInputValue?.trim() ?? '';
+	} catch (_e) {
+		// We don't really care if delivering the notice failed or not, so we just treat it as if
+		// the notice was dismissed.
+		return false;
+	}
 };
 
 nova.commands.register(
@@ -92,65 +144,41 @@ nova.commands.register(
 nova.commands.register(
 	'com.thorlaksson.intelephense.enter-license-key',
 	async (_workspace) => {
-		if (!langserver) {
-			// TODO: show warning notice?
-			return;
-		}
-
-		const enterKeyNotice = new NotificationRequest(
-			'enter-intelephense-license-key'
-		);
-		enterKeyNotice.title = 'Intelephense license key';
-		enterKeyNotice.body = 'Enter your Intelephense license key.';
-		enterKeyNotice.type = 'input';
-		enterKeyNotice.actions = ['Submit', 'Cancel'];
-		enterKeyNotice.textInputValue = getLicenseKey() ?? '';
-		enterKeyNotice.textInputPlaceholder = 'ABCDEF123456789';
-
+		// The error notice can be used in multiple places so we prepare it here for brevity.
 		const errorNotice = new NotificationRequest(
 			'enter-intelephense-license-key-error'
 		);
 		errorNotice.title = 'Failed to activate Intelephense license key';
 
-		const reply = await nova.notifications.add(enterKeyNotice);
-		// Only the 0 index int he action array is 'Submit'.
-		if (reply.actionIdx !== 0) {
+		const licenseKey = await getLicenseKeyFromUser();
+
+		// If the license key is false that means the notice was dismissed.
+		if (licenseKey === false) {
 			return;
 		}
 
-		const licenseKey = reply?.textInputValue?.trim() ?? '';
-
-		if (licenseKey && !/^[0-9a-zA-Z]{15}$/.test(licenseKey)) {
+		// Make sure the provided license key is an alphanumeric string with 15 characters.c
+		if (!/^[0-9a-zA-Z]{15}$/.test(licenseKey)) {
 			errorNotice.body =
 				'A licence key must be a 15 character alphanumeric string.';
 			nova.notifications.add(errorNotice);
 
-			if (shouldLogDebugInformation()) {
+			if (config.shouldLogDebugInformation()) {
 				console.error(
 					`Failed to activate Intelephense license: ${errorNotice.body}`
 				);
 			}
 
+			// Nothing more to do if the key is invalid.
 			return;
 		}
 
 		try {
 			const responseBody = await activateLicense(licenseKey);
+			writeLicenseActivationInformationToFile(licenseKey, responseBody);
+			config.setLicenseKey(licenseKey);
 
-			const path = nova.path.join(
-				nova.extension.globalStoragePath,
-				`intelephense_licence_key_${licenseKey}`
-			);
-			const f = nova.fs.open(path, 'w');
-			f.write(JSON.stringify(responseBody));
-			f.close();
-
-			if (shouldLogDebugInformation()) {
-				console.info('Successfully saved license activation response.');
-			}
-
-			setLicenseKey(licenseKey);
-
+			// Send success notice.
 			const successNotice = new NotificationRequest(
 				'activate-intelephense-license-success'
 			);
@@ -159,12 +187,15 @@ nova.commands.register(
 				'Your Intelephense licence key has been activated.';
 			nova.notifications.add(successNotice);
 
-			langserver.restart();
+			// If Intelephense is already running we restart it.
+			if (langserver) {
+				langserver.restart();
+			}
 		} catch (e) {
 			errorNotice.body = `${e}`;
 			nova.notifications.add(errorNotice);
 
-			if (shouldLogDebugInformation()) {
+			if (config.shouldLogDebugInformation()) {
 				console.error(e);
 			}
 		}
@@ -179,7 +210,7 @@ exports.activate = async function () {
 		langserver = new IntelephenseLanguageServer();
 		nova.subscriptions.add(langserver);
 
-		if (isEnabledForWorkspace()) {
+		if (config.isEnabledForWorkspace()) {
 			langserver.start();
 		}
 
