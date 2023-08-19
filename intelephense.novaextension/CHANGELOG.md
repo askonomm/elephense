@@ -2,6 +2,7 @@
 
 * Add - Diagnostics lanaguage server options are now available.
 * Add - Option to enable and disable Intelephense at the workspace level.
+* Add - License can now be added via the "Enter license key" command.
 * Tweak - Update bundled Intelephense version to 1.9.5
 
 
