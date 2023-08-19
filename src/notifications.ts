@@ -1,6 +1,6 @@
 import * as config from './config';
 
-const createNotification = (
+export const createNotification = (
 	id: string,
 	title: string,
 	body: string,
@@ -43,5 +43,5 @@ export const createInfoNotice = (id: string, title: string, body: string) =>
 	createNotification(id, title, body);
 
 export const sendNotification = (notification: NotificationRequest) => {
-	nova.notifications.add(notification);
+	return nova.notifications.add(notification);
 };
