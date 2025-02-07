@@ -1,3 +1,7 @@
+/**
+ * Attempts to find the installed path to Intelephense executable,
+ * which if not present falls back to the path set in configuration.
+ */
 export const intelephensePath = (): Promise<string | null> => {
 	return new Promise((resolve, reject) => {
 		const getInstalledPath = new Process('usr/bin/env', {

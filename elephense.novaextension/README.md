@@ -2,7 +2,7 @@ Adds the [Intelephense](https://intelephense.com/) advanced language server (LSP
 
 ## Requirements
 
-Intelephense requires [Node.js](https://nodejs.org) and [intelephense](https://www.npmjs.com/package/intelephense) to be installed. If you want Elephense to be able to automatically detect Intelephense, make sure to install it globally (e.g `npm i -g intelephense`).
+Elephense requires [Node.js](https://nodejs.org) and [intelephense](https://www.npmjs.com/package/intelephense) to be installed. If you want Elephense to be able to automatically detect Intelephense, make sure to install it globally (e.g `npm i -g intelephense`).
 
 ## Usage
 
