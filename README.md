@@ -1,3 +1,3 @@
-# Intelephense for Nova
+# Intelephense PHP language server for Nova.
 
-Intelephense extension code for Panic's [Nova](https://nova.app) editor. You can find the main plugin readme [here](https://git.sr.ht/~reykjalin/nova-intelephense/tree/main/item/intelephense.novaextension/README.md).
+This is a fork off of the [nova-intelephense](https://git.sr.ht/~reykjalin/nova-intelephense/tree/main/item/intelephense.novaextension/README.md) extension, but refined and actively maintained.

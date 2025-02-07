@@ -5,7 +5,7 @@
 	"scripts": {},
 	"repository": {
 		"type": "git",
-		"url": "git@git.sr.ht:~reykjalin/nova-intelephense"
+		"url": "git@github.com:askonomm/elephense.git"
 	},
 	"keywords": [
 		"intelephense",
@@ -13,9 +13,6 @@
 		"php",
 		"nova"
 	],
-	"author": "Kristófer Reykjalín",
-	"license": "MIT",
-	"dependencies": {
-		"intelephense": "1.12.6"
-	}
+	"author": "Asko Nõmm",
+	"license": "MIT"
 }

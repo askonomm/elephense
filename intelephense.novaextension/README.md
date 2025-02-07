@@ -1,87 +1,29 @@
-<!--
-👋 Hello! As Nova users browse the extensions library, a good README can help them understand what your extension does, how it works, and what setup or configuration it may require.
-
-Not every extension will need every item described below. Use your best judgement when deciding which parts to keep to provide the best experience for your new users.
-
-💡 Quick Tip! As you edit this README template, you can preview your changes by selecting **Extensions → Activate Project as Extension**, opening the Extension Library, and selecting "Intelephense" in the sidebar.
-
-Let's get started!
--->
-
-<!--
-🎈 Include a brief description of the features your extension provides. For example:
--->
-
-**Intelephense** provides advanced language support for PHP via [Intelephense](https://intelephense.com/).
-
-Intelephense is developed by [Ben Mewburn](https://github.com/bmewburn) on [GitHub](https://github.com/bmewburn/vscode-intelephense/). Ben Mewburn is not involved in the development of this extension.
-
-The extension has mostly complete support for the configuration options available in Intelephense. If there's something you're missing please reach out and let me know.
-
-![Screenshot showcasing Intelephense's ability to provide hover information.](https://git.sr.ht/~reykjalin/nova-intelephense/blob/eef07bbe269d786240f68f38be42444090b98a7f/intelephense.novaextension/Screenshots/demo.webp)
-
-<!--
-🎈 It can also be helpful to include a screenshot or GIF showing your extension in action:
--->
+Adds the [Intelephense](https://intelephense.com/) advanced language server (LSP) for PHP.
 
 ## Requirements
 
-<!--
-🎈 If your extension depends on external processes or tools that users will need to have, it's helpful to list those and provide links to their installers:
--->
-
-Intelephense requires some additional tools to be installed on your Mac:
-
-- [Node.js](https://nodejs.org/en/)
-
-<!--
-✨ Providing tips, tricks, or other guides for installing or configuring external dependencies can go a long way toward helping your users have a good setup experience:
--->
-
-> If you want to use a different version of Intelephense than the bundled version you can set a path to the executable in the extension preferences.
+Intelephense requires [Node.js](https://nodejs.org) and [intelephense](https://www.npmjs.com/package/intelephense) to be installed. If you want Elephense to be able to automatically detect Intelephense, make sure to install it globally (e.g `npm i -g intelephense`).
 
 ## Usage
 
-<!--
-🎈 If your extension provides features that are invoked manually, consider describing those options for users:
--->
+Once the extension is activated it will attempt to find if you have the Intelephense LSP already installed in your system, and if you do, it will automatically use that. If you do not or it can't find it then make sure to add the path to it in the extension settings.
 
-To run Intelephense:
-
-- Just activate the extension.
-
-Once the extension is activated it will attempt to install Intelephense in the extension workspace, if no installation is found.
-
-<!--
-🎈 Alternatively, if your extension runs automatically (as in the case of a validator), consider showing users what they can expect to see:
--->
+Elephense will default to PHP 8.4, but you can change that preference on a global or per project basis.
 
 ### To activate a premium license
 
-- Run the **Extensions → Intelephense → Enter license key** command.
-- Type your license key in the notification box that appears in the top-right corner of the editor.
-- Click submit.
+-   Go to **Extensions → Elephense → Enter license key**.
+-   Type your license key in the notification box that appears in the top-right corner.
+-   Click submit.
 
-If the activation is successful you'll see a notice informing you of the success and Intelephense will be restarted.
+If the activation is successful you'll see a notice informing you of the success and Elephense will be restarted.
 
 ### Workspace specific stubs
 
-You can configure stubs that Intelephense will use on a per-project basis by opening **Project → Project Settings → Intelephense** and changing the stubs list there.
-If you set this list of stubs back to the default value Intelephense will instead use the stubs list from the global preferences.
-To quickly reset the stubs list back to default values you can use the **Extensions → Intelephense → Reset Workspace Stubs** command.
+You can configure stubs that Intelephense will use on a per-project basis by going to **Project → Project Settings → Elephense** and changing the stubs list there. If you set this list of stubs back to the default value Elephense will instead use the stubs list from the global preferences. To quickly reset the stubs list back to default values you can go to **Extensions → Intelephense → Reset Workspace Stubs**.
 
 ### Configuration
 
-<!--
-🎈 If your extension offers global- or workspace-scoped preferences, consider pointing users toward those settings. For example:
--->
-
-To configure global preferences, open **Extensions → Extension Library...** then select Intelephense's **Preferences** tab.
+To configure global preferences, go to **Extensions → Extension Library...** and select Elephense's **Preferences** tab.
 
 You can also configure preferences on a per-project basis in **Project → Project Settings...**
-
-<!--
-👋 That's it! Happy developing!
-
-P.S. If you'd like, you can remove these comments before submitting your extension 😉
--->
