@@ -1,4 +1,3 @@
-import * as config from './config';
 import { defaultStubs } from './defaults';
 import { sendNotification, createInfoNotice } from './notifications';
 
