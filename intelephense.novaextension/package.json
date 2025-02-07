@@ -1,7 +1,7 @@
 {
-	"name": "nova-intelephense",
-	"version": "1.2.2",
-	"description": "Use Intelephense with Nova",
+	"name": "elephense",
+	"version": "1.0.0",
+	"description": "Intelephense advanced PHP language server for Nova.",
 	"scripts": {},
 	"repository": {
 		"type": "git",
@@ -10,11 +10,12 @@
 	"keywords": [
 		"intelephense",
 		"lsp",
+		"php",
 		"nova"
 	],
 	"author": "Kristófer Reykjalín",
 	"license": "MIT",
 	"dependencies": {
-		"intelephense": "1.9.5"
+		"intelephense": "1.12.6"
 	}
 }

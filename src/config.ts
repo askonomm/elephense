@@ -1,15 +1,31 @@
-export const getConfiguredIntelephensePath = () => {
-	return nova.config.get('intelephense.language-server-path', 'string');
-};
+export const intelephensePath = (): Promise<string | null> => {
+	return new Promise((resolve, reject) => {
+		const getInstalledPath = new Process('usr/bin/env', {
+			args: ['which', 'intelephense'],
+			cwd: nova.extension.path,
+		});
 
-export const getBundledIntelephensePath = () => {
-	return nova.path.join(
-		nova.extension.path,
-		'node_modules',
-		'intelephense',
-		'lib',
-		'intelephense.js'
-	);
+		getInstalledPath.onStdout((response) => {
+			if (response.includes('not found')) {
+				resolve(
+					nova.config.get(
+						'intelephense.language-server-path',
+						'string'
+					)
+				);
+			}
+
+			resolve(response.trim());
+		});
+
+		getInstalledPath.onStderr(() => {
+			resolve(
+				nova.config.get('intelephense.language-server-path', 'string')
+			);
+		});
+
+		getInstalledPath.start();
+	});
 };
 
 export const shouldLogDebugInformation = () => {
@@ -29,11 +45,8 @@ export const isEnabledForWorkspace = () => {
 };
 
 export const setLicenseKey = (key: string) => {
-	nova.config.set('com.thorlaksson.intelephense.license-key', key);
+	nova.config.set('ee.nmm.elephense.license-key', key);
 };
 export const getLicenseKey = () => {
-	return nova.config.get(
-		'com.thorlaksson.intelephense.license-key',
-		'string'
-	);
+	return nova.config.get('ee.nmm.elephense.license-key', 'string');
 };

@@ -1,28 +1,27 @@
 import * as config from './config';
 import { sendNotification, createInfoNotice } from './notifications';
 
-class IntelephenseLanguageServer extends Disposable {
+export default class IntelephenseLanguageServer extends Disposable {
 	private languageClient: LanguageClient | null;
 	private didStopDisposable: Disposable | undefined;
-	_clientPath: string;
+	public _clientPath: string;
 
-	constructor() {
+	constructor(path: string) {
 		super();
 		this.languageClient = null;
-		this._clientPath =
-			config.getConfiguredIntelephensePath() ??
-			config.getBundledIntelephensePath();
+		this._clientPath = path;
+	}
 
-		if (config.shouldLogDebugInformation()) {
-			console.info(
-				`Language client path initialized to: ${this._clientPath}`
-			);
-		}
+	static async init(): Promise<IntelephenseLanguageServer> {
+		return new IntelephenseLanguageServer(
+			(await config.intelephensePath()) ?? ''
+		);
 	}
 
 	set clientPath(path: string) {
 		this._clientPath = path;
 	}
+
 	get clientPath() {
 		return this._clientPath;
 	}
@@ -158,6 +157,7 @@ class IntelephenseLanguageServer extends Disposable {
 
 	async dispose() {
 		if (this.didStopDisposable) {
+			console.log('a');
 			if (config.shouldLogDebugInformation()) {
 				console.info('Disposing of language client stop handler.');
 			}
@@ -167,6 +167,7 @@ class IntelephenseLanguageServer extends Disposable {
 		}
 
 		if (this.languageClient) {
+			console.log('b');
 			if (config.shouldLogDebugInformation()) {
 				console.info('Stopping and clearing language client.');
 			}
@@ -176,5 +177,3 @@ class IntelephenseLanguageServer extends Disposable {
 		}
 	}
 }
-
-export { IntelephenseLanguageServer };

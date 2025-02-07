@@ -1,7 +1,6 @@
 import { defaultStubs } from './defaults';
 import * as config from './config';
-import { IntelephenseLanguageServer } from './language-server';
-import { installOrUpdateIntelephense } from './installer';
+import IntelephenseLanguageServer from './language-server';
 import { createInfoNotice, sendNotification } from './notifications';
 import {
 	getLicenseKeyFromUser,
@@ -16,25 +15,22 @@ import {
 
 let langserver: IntelephenseLanguageServer | undefined = undefined;
 
-nova.commands.register(
-	'com.thorlaksson.intelephense.restartServer',
-	(_workspace) => {
-		if (!langserver) {
-			langserver = new IntelephenseLanguageServer();
-		}
-		langserver.restart();
+nova.commands.register('ee.nmm.elephense.restartServer', async (_workspace) => {
+	console.log('Restarting server ...');
+
+	if (!langserver) {
+		langserver = await IntelephenseLanguageServer.init();
 	}
-);
+
+	langserver.restart();
+});
+
+nova.commands.register('ee.nmm.elephense.resetWorkspaceStubs', (workspace) => {
+	workspace.config.set('intelephense.workspace-stubs', defaultStubs);
+});
 
 nova.commands.register(
-	'com.thorlaksson.intelephense.resetWorkspaceStubs',
-	(workspace) => {
-		workspace.config.set('intelephense.workspace-stubs', defaultStubs);
-	}
-);
-
-nova.commands.register(
-	'com.thorlaksson.intelephense.enter-license-key',
+	'ee.nmm.elephense.enter-license-key',
 	// We need to use the `langserver` variable in the function which is why it's not defined in
 	// license.ts.
 	async (_workspace) => {
@@ -106,11 +102,9 @@ nova.commands.register(
 	langserver
 );
 
-exports.activate = async function () {
+exports.activate = async () => {
 	try {
-		await installOrUpdateIntelephense();
-
-		langserver = new IntelephenseLanguageServer();
+		langserver = await IntelephenseLanguageServer.init();
 		nova.subscriptions.add(langserver);
 
 		if (config.isEnabledForWorkspace()) {

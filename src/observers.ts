@@ -2,7 +2,7 @@ import * as config from './config';
 import { defaultStubs } from './defaults';
 import { sendNotification, createInfoNotice } from './notifications';
 
-import type { IntelephenseLanguageServer } from './language-server';
+import type IntelephenseLanguageServer from './language-server';
 
 export function languageServerPathObserver(
 	this: IntelephenseLanguageServer | undefined,
@@ -13,9 +13,9 @@ export function languageServerPathObserver(
 		return;
 	}
 
-	if (path && path !== this.clientPath) {
+	if (path && path !== this._clientPath) {
 		console.info('Intelephense path updated');
-		this.clientPath = path;
+		this._clientPath = path;
 		this.restart();
 
 		sendNotification(
@@ -24,22 +24,6 @@ export function languageServerPathObserver(
 				nova.localize('New Intelephense path detected'),
 				nova.localize(
 					'Intelephense has been restarted and is now using the newly provided path.'
-				)
-			)
-		);
-	} else if (
-		!path &&
-		config.getBundledIntelephensePath() !== this.clientPath
-	) {
-		this.clientPath = config.getBundledIntelephensePath();
-		this.restart();
-
-		sendNotification(
-			createInfoNotice(
-				'bundled-intelephense-path',
-				nova.localize('New Intelephense path detected'),
-				nova.localize(
-					'Intelephense has been restarted and is now using the bundled version of the language server.'
 				)
 			)
 		);

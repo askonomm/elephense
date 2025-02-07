@@ -1,18 +1,27 @@
 {
-	"name": "nova-intelephense",
-	"version": "1.3.0",
-	"description": "High performance, advanced PHP language support for Nova",
+	"name": "elephense",
+	"version": "1.0.0",
+	"description": "Intelephense advanced PHP language server for Nova",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "esbuild src/main.ts --bundle --minify --platform=node --outfile=intelephense.novaextension/Scripts/main.js --watch",
-		"build": "esbuild src/main.ts --bundle --minify --platform=node --outfile=intelephense.novaextension/Scripts/main.js"
+		"start": "esbuild src/main.ts --bundle --platform=node --outfile=intelephense.novaextension/Scripts/main.js --watch",
+		"build": "esbuild src/main.ts --bundle --platform=node --outfile=intelephense.novaextension/Scripts/main.js"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git@git.sr.ht:~reykjalin/nova-intelephense"
+		"url": "git@github.com:askonomm/elephense.git"
 	},
-	"author": "Kristófer R. <kristofer@thorlaksson.com>",
+	"author": {
+		"name": "Asko Nõmm",
+		"email": "asko@nmm.ee"
+	},
+	"contributors": [
+		{
+			"name": "Kristófer R.",
+			"email": "kristofer@thorlaksson.com"
+		}
+	],
 	"license": "MIT",
 	"devDependencies": {
 		"@tsconfig/recommended": "^1.0.1",

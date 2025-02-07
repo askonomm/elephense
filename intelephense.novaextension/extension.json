@@ -1,20 +1,17 @@
 {
-	"identifier": "com.thorlaksson.intelephense",
-	"name": "Intelephense",
-	"organization": "Kristófer Reykjalín",
-	"description": "High performance, advanced PHP language support for Nova",
-	"version": "1.3.0",
+	"identifier": "ee.nmm.elephense",
+	"name": "Elephense",
+	"organization": "Asko Nõmm",
+	"description": "Intelephense advanced PHP language server for Nova",
+	"version": "1.0.0",
 	"categories": ["completions", "languages"],
 	"bugs": "https://lists.sr.ht/~reykjalin/public-inbox",
 	"homepage": "https://git.sr.ht/~reykjalin/nova-intelephense",
 	"repository": "https://git.sr.ht/~reykjalin/nova-intelephense",
 	"funding": "https://intelephense.com/",
 	"license": "MIT",
-
 	"main": "main.js",
-
 	"min_runtime": "5.1",
-
 	"activationEvents": [
 		"onLanguage:php",
 		"onLanguage:phtml",
@@ -54,7 +51,7 @@
 					"title": "Maximum File Size",
 					"description": "Maximum file size in bytes.",
 					"type": "number",
-					"default": 1000000
+					"default": 10000000
 				},
 				{
 					"key": "intelephense.files.exclude",
@@ -86,7 +83,7 @@
 					"title": "PHP Version",
 					"type": "string",
 					"description": "A semver compatible string that represents the target PHP version. Used for providing version appropriate suggestions and diagnostics. PHP 5.3.0 and greater supported.",
-					"default": "7.4.0"
+					"default": "8.4.0"
 				},
 				{
 					"key": "intelephense.environment.shortOpenTag",
@@ -202,8 +199,8 @@
 					"type": "enum",
 					"radio": true,
 					"values": [
-						[ "onType", "as changes are made to the document." ],
-						[ "onSave", "when the document is saved." ]
+						["onType", "as changes are made to the document."],
+						["onSave", "when the document is saved."]
 					],
 					"default": "onType"
 				},
@@ -391,6 +388,13 @@
 			"link": "https://github.com/bmewburn/intelephense-docs/blob/master/gettingStarted.md#environment",
 			"children": [
 				{
+					"key": "intelephense.environment.phpVersion",
+					"title": "PHP Version",
+					"type": "string",
+					"description": "A semver compatible string that represents the target PHP version. Used for providing version appropriate suggestions and diagnostics. PHP 5.3.0 and greater supported.",
+					"default": "8.4.0"
+				},
+				{
 					"key": "intelephense.workspace-stubs",
 					"type": "stringArray",
 					"description": "Configure stub files for built in symbols and common extensions. The default setting includes PHP core and all bundled extensions.",
@@ -477,16 +481,16 @@
 		"extensions": [
 			{
 				"title": "Restart Intelephense",
-				"command": "com.thorlaksson.intelephense.restartServer"
+				"command": "ee.nmm.elephense.restartServer"
 			},
 			{
 				"title": "Reset Workspace Stubs",
-				"command": "com.thorlaksson.intelephense.resetWorkspaceStubs"
+				"command": "ee.nmm.elephense.resetWorkspaceStubs"
 			},
 			{ "separator": true },
 			{
 				"title": "Enter license key",
-				"command": "com.thorlaksson.intelephense.enter-license-key"
+				"command": "ee.nmm.elephense.enter-license-key"
 			}
 		]
 	}
